@@ -9,7 +9,7 @@ class SortableArray {
     constructor(values: Array<any>, details: DetailsManager) {
         this.comparisons = 0;
         this.arrayAccesses = 0;
-        this.values = values;
+        this.values = [...values];
         this.details = details;
     }
 
