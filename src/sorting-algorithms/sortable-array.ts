@@ -39,7 +39,7 @@ class SortableArray {
 
     public compare(i: number, j: number): boolean {
         this.incComp(i,j);
-        return this.getVal(i) > this.getVal(j);
+        return this.getVal(i) < this.getVal(j);
     }
 
     public getComparisons() {
