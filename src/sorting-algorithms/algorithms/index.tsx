@@ -4,7 +4,9 @@ import SelectionSort from "./selection-sort";
 import MergeSort from "./merge-sort";
 import GnomeSort from "./gnome-sort";
 import BogoSort from "./bogo-sort";
+import ThreeStooges from "./three-stooges";
 import SortingAlgorithm from "./sorting-algorithm";
+
 
 const sortingAlgorithms: Array<SortingAlgorithm> = [
     new BubbleSort(),
@@ -13,6 +15,7 @@ const sortingAlgorithms: Array<SortingAlgorithm> = [
     new MergeSort(),
     new GnomeSort(),
     new BogoSort(),
+    new ThreeStooges(),
 ];
 
 export default sortingAlgorithms;
