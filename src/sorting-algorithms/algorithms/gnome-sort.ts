@@ -3,7 +3,7 @@ import { SortableArray } from "../sortable-array";
 
 class GnomeSort implements SortingAlgorithm {
     sort(arr: SortableArray): Array<any> {
-        if (arr.getValues().length == 0) return [];
+        if (arr.getValues().length === 0) return [];
         let pos = 0;
 
         while (pos < arr.getValues().length) {
