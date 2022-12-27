@@ -8,6 +8,7 @@ import ThreeStooges from "./three-stooges";
 import BozoSort from "./bozo-sort";
 import ShellSort from "./shell-sort";
 import SortingAlgorithm from "./sorting-algorithm";
+import CocktailShakerSort from "./cocktail-shaker-sort";
 
 
 const sortingAlgorithms: Array<SortingAlgorithm> = [
@@ -20,6 +21,7 @@ const sortingAlgorithms: Array<SortingAlgorithm> = [
     new ThreeStooges(),
     new BozoSort(),
     new ShellSort(),
+    new CocktailShakerSort(),
 ];
 
 export default sortingAlgorithms;
