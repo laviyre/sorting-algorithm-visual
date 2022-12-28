@@ -108,7 +108,7 @@ class QuickSort implements SortingAlgorithm {
             return;
 
         let p = this.partition(arr, start, end, this.pivot);
-        this.quickSort(arr, start, p);
+        this.quickSort(arr, start, p-1);
         this.quickSort(arr, p+1, end);
     }
 }
@@ -122,7 +122,14 @@ const QuickSortFactory = (() => {
         return new QuickSort(partition, pivot);
     }
 
-    return {getBasicQuickSort, getQuickSort};
+    function getLomutoQuickSorts() {
+        let qs = [];
+        for (let i = PivotType.Random; i <= PivotType.Median; i++)
+            qs.push(new QuickSort(PartitionType.Lomuto, i));
+        return qs;
+    }
+
+    return {getBasicQuickSort, getQuickSort, getLomutoQuickSorts};
 })();
 
 export {QuickSortFactory};

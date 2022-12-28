@@ -23,7 +23,7 @@ const sortingAlgorithms: Array<SortingAlgorithm> = [
     new BozoSort(),
     new ShellSort(),
     new CocktailShakerSort(),
-    QuickSortFactory.getBasicQuickSort(),
+    ...QuickSortFactory.getLomutoQuickSorts(),
 ];
 
 export default sortingAlgorithms;
