@@ -24,6 +24,7 @@ const sortingAlgorithms: Array<SortingAlgorithm> = [
     new ShellSort(),
     new CocktailShakerSort(),
     ...QuickSortFactory.getLomutoQuickSorts(),
+    ...QuickSortFactory.getHoareQuickSorts(),
 ];
 
 export default sortingAlgorithms;

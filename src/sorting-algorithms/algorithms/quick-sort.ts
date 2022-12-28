@@ -1,5 +1,6 @@
 import SortingAlgorithm from "./sorting-algorithm";
 import { SortableArray } from "../sortable-array";
+import { kMaxLength } from "buffer";
 
 enum PartitionType {
     Lomuto,
@@ -39,7 +40,18 @@ const PartitionFunctions = (() => {
     }
 
     function hoare(arr: SortableArray, start: number, end: number, pivot: Function) {
+        let pivotValue = arr.getVal(pivot(arr, start, end));
 
+        let left = start - 1;
+        let right = end + 1;
+
+        while (true) {
+            while (arr.getVal(++left) < pivotValue);
+            while (arr.getVal(--right) > pivotValue);
+            if (left >= right) return right;
+
+            arr.swap(left, right);
+        }
     }
 
     return {getPartition};
@@ -96,6 +108,11 @@ class QuickSort implements SortingAlgorithm {
 
     constructor(partition: PartitionType, pivot: PivotType) {
         this.partition = PartitionFunctions.getPartition(partition);
+        
+        // Choosing last element in Hoare Partition leads to infinite loop so auto assign Random
+        if (partition === PartitionType.Hoare && pivot === PivotType.Last)
+            pivot = PivotType.Random;
+
         this.pivot = PivotFunctions.getPivot(pivot);
         this.name = `Quicksort (Partition: ${PartitionType[partition]}, Pivot: ${PivotType[pivot]})`;
     }
@@ -110,7 +127,11 @@ class QuickSort implements SortingAlgorithm {
             return;
 
         let p = this.partition(arr, start, end, this.pivot);
-        this.quickSort(arr, start, p-1);
+
+        // Hoare Partition includes pivot whereas Lomuto does not
+        let adjustment = this.partition === PartitionFunctions.getPartition(PartitionType.Hoare) ? 1 : 0;
+
+        this.quickSort(arr, start, p-1 + adjustment);
         this.quickSort(arr, p+1, end);
     }
 
@@ -133,7 +154,15 @@ const QuickSortFactory = (() => {
         return qs;
     }
 
-    return {getBasicQuickSort, getQuickSort, getLomutoQuickSorts};
+    function getHoareQuickSorts() {
+        let qs = [];
+        for (let i = PivotType.Random; i <= PivotType.Median; i++)
+            if (i !== PivotType.Last)
+                qs.push(new QuickSort(PartitionType.Hoare, i));
+        return qs;
+    }
+
+    return {getBasicQuickSort, getQuickSort, getLomutoQuickSorts, getHoareQuickSorts};
 })();
 
 export {QuickSortFactory};
