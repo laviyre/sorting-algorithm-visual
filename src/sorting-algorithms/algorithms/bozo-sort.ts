@@ -25,6 +25,8 @@ class BozoSort implements SortingAlgorithm {
 
         return true;
     }
+
+    getName() { return "Bozo Sort"; } 
 }
 
 export default BozoSort;

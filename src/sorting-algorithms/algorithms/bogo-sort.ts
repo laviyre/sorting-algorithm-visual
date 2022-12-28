@@ -28,6 +28,8 @@ class BogoSort implements SortingAlgorithm {
 
         return true;
     }
+
+    getName() { return "Bogo Sort"; }
 }
 
 export default BogoSort;

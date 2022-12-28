@@ -22,6 +22,8 @@ class ShellSort implements SortingAlgorithm {
 
         return arr.getValues();
     }
+
+    getName(): string { return "Shellsort" }
 }
 
 export default ShellSort;

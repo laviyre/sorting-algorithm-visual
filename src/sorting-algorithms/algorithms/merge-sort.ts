@@ -33,6 +33,8 @@ class MergeSort implements SortingAlgorithm {
                 arr.setVal(pos, left[i++]);
         }
     }
+
+    getName() { return "Merge Sort"; }
 }
 
 export default MergeSort;

@@ -16,6 +16,8 @@ class SelectionSort implements SortingAlgorithm {
 
         return arr.getValues();
     }
+
+    getName(): string { return "Selection Sort"; }
 }
 
 export default SelectionSort;

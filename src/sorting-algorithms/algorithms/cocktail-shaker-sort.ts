@@ -27,6 +27,8 @@ class CocktailShakerSort implements SortingAlgorithm {
 
         return arr.getValues();
     }
+
+    getName() { return "Cocktail Shaker Sort"; }
 }
 
 export default CocktailShakerSort;

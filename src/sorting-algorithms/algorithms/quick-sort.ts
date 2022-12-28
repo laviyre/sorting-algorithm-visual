@@ -92,10 +92,12 @@ const PivotFunctions = (() => {
 class QuickSort implements SortingAlgorithm {
     private partition: Function;
     private pivot: Function;
+    private name: string;
 
     constructor(partition: PartitionType, pivot: PivotType) {
         this.partition = PartitionFunctions.getPartition(partition);
         this.pivot = PivotFunctions.getPivot(pivot);
+        this.name = `Quicksort (Partition: ${PartitionType[partition]}, Pivot: ${PivotType[pivot]})`;
     }
 
     sort(arr: SortableArray, start: number = 0, end: number = arr.getValues().length-1): Array<any> {
@@ -111,6 +113,8 @@ class QuickSort implements SortingAlgorithm {
         this.quickSort(arr, start, p-1);
         this.quickSort(arr, p+1, end);
     }
+
+    getName() { return this.name; }
 }
 
 const QuickSortFactory = (() => {

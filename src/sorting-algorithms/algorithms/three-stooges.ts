@@ -15,6 +15,8 @@ class ThreeStooges implements SortingAlgorithm {
 
         return arr.getValues();
     }
+
+    getName(): string { return "Three Stooges Sort"; }
 }
 
 export default ThreeStooges;

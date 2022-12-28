@@ -12,6 +12,8 @@ class BubbleSort implements SortingAlgorithm {
     
         return arr.getValues();
     }
+
+    getName() { return "Bubble Sort"; }
 }
 
 export default BubbleSort;

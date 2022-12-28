@@ -15,6 +15,8 @@ class GnomeSort implements SortingAlgorithm {
 
         return arr.getValues();
     }
+
+    getName() { return "Gnome Sort"; }
 }
 
 export default GnomeSort;

@@ -21,7 +21,7 @@ describe("Test sorting algorithms correctly sort", () => {
     function sortingAlgorithmTest(algorithm: SortingAlgorithm) {
         let handler: SortingHandler = new SortingHandler();
 
-        test(`${algorithm.constructor.name}`, () => {
+        test(algorithm.getName(), () => {
             sortingAlgorithmInOrder.forEach(sortTest => {
                 expect(handler.sort(sortTest.input, algorithm)).toEqual(sortTest.output);
             })

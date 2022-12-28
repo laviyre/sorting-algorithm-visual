@@ -12,6 +12,8 @@ class InsertionSort implements SortingAlgorithm {
 
         return arr.getValues();
     }
+
+    getName() { return "Insertion Sort"; }
 }
 
 export default InsertionSort;
