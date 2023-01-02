@@ -11,4 +11,38 @@
     --yellow: rgb(222, 197, 103);
     --header: rgb(252, 252, 252);
     --text: rgb(148, 154, 170);
+
+    font-size: 16px;
+
+    --header-height: 90px;
+    --sidebar-width: 250px;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+body, .root, .App {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background);
+}
+
+.App {
+    display: grid;
+    grid-template: var(--header-height) 1fr / var(--sidebar-width) 1fr;
+}
+
+header {
+    background-color: var(--dark-background);
+    grid-column: 1 / span 2;
+}
+
+aside {
+    background-color: var(--background);
+}
+
+article {
+    background-color: var(--light-background);
 }

@@ -1,8 +1,7 @@
-
 import React from "react";
 
-function Settings() {
+function Bar() {
     return(<></>);
 }
 
-export default Settings;
+export default Bar;
