@@ -9,6 +9,7 @@ import BozoSort from "./bozo-sort";
 import ShellSort from "./shell-sort";
 import SortingAlgorithm from "./sorting-algorithm";
 import { QuickSortFactory } from "./quick-sort";
+import HeapSort from "./heap-sort";
 import CocktailShakerSort from "./cocktail-shaker-sort";
 
 
@@ -25,6 +26,8 @@ const sortingAlgorithms: Array<SortingAlgorithm> = [
     new CocktailShakerSort(),
     ...QuickSortFactory.getLomutoQuickSorts(),
     ...QuickSortFactory.getHoareQuickSorts(),
+    new HeapSort(false),
+    new HeapSort(true),
 ];
 
 export default sortingAlgorithms;
