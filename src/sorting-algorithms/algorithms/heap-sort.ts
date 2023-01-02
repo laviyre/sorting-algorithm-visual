@@ -1,7 +1,5 @@
 import SortingAlgorithm from "./sorting-algorithm";
 import { SortableArray } from "../sortable-array";
-import { count } from "console";
-import { textSpanIntersectsWithPosition } from "typescript";
 
 class HeapSort implements SortingAlgorithm {
     private isBottomUp: boolean
