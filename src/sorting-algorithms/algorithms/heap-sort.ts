@@ -1,5 +1,7 @@
 import SortingAlgorithm from "./sorting-algorithm";
 import { SortableArray } from "../sortable-array";
+import { count } from "console";
+import { textSpanIntersectsWithPosition } from "typescript";
 
 class HeapSort implements SortingAlgorithm {
     private isBottomUp: boolean
@@ -12,11 +14,14 @@ class HeapSort implements SortingAlgorithm {
         if (this.isBottomUp)
             this.heapifyBottomUp(arr);
         else
-            this.heapifyTopDown(arr);
+            this.heapifyTopDown(arr, arr.getValues().length);
 
         for (let i = arr.getValues().length-1; i > 0; i--) {
             arr.swap(0, i);
-            this.siftDown(arr, 0, i-1);
+            if (this.isBottomUp) 
+                this.siftDown(arr, 0, i-1);
+            else
+                this.heapifyTopDown(arr, i);
         }
 
         return arr.getValues();
@@ -27,11 +32,7 @@ class HeapSort implements SortingAlgorithm {
             this.siftDown(arr, i, arr.getValues().length-1)
     }
 
-    heapifyTopDown(arr: SortableArray): void {
-
-    }
-
-    siftDown(arr: SortableArray, start: number, end: number) {
+    siftDown(arr: SortableArray, start: number, end: number): void {
         let curr = start;
 
         while (2*curr+1 <= end) {
@@ -50,7 +51,28 @@ class HeapSort implements SortingAlgorithm {
         }
     }
 
-    getName() {
+
+    heapifyTopDown(arr: SortableArray, end: number): void {
+        for (let i = 1; i < end; i++) {
+            this.siftUp(arr, 0, i);
+        }
+    }
+
+    siftUp(arr: SortableArray, start: number, end: number): void {
+        let child = end;
+
+        while (child > start) {
+            let parent = Math.floor((child-1)/2);
+
+            if (arr.compare(child, parent))
+                return;
+
+            arr.swap(parent, child);
+            child = parent;
+        }
+    }
+
+    getName(): string {
         return this.isBottomUp ? "Heapsort (Bottom up)" : "Heapsort (Top down)";
     }
 }
