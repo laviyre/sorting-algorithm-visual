@@ -1,8 +1,13 @@
 import React from "react";
+import HeaderCSS from "./header.module.css";
 
-function Header() {
+interface Name {
+    name: string
+}
+
+function Header(props: Name) {
     return (
-        <header></header>
+        <header className = {HeaderCSS.head}><h1>{props.name}</h1></header>
     )
 }
 
