@@ -1,5 +1,5 @@
-import React from "react";
 import Button from "./Button/Button";
+import "./Sidebar.module.css";
 
 function Sidebar() {
     return (
