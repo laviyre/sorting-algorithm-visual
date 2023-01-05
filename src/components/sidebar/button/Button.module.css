@@ -1,0 +1,21 @@
+button {
+    width: 60%;
+    height: 60px;
+    border-radius: 10px;
+    font-size: 2rem;
+    font-weight: 700;
+    transition: filter .1s;
+    border: none;
+}
+
+button.active {
+    cursor: pointer;
+}
+
+button.active:hover {
+    filter: brightness(110%);
+}
+
+.red {
+    background-color: var(--red);
+}
