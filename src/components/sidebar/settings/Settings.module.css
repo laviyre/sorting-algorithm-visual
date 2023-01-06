@@ -1,4 +1,5 @@
 .settings {
-    display: flex;
-    align-items: center;
+    display: grid;
+    width: 100%;
+    grid-auto-rows: auto 40px;
 }
