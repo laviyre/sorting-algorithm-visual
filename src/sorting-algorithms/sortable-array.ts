@@ -1,4 +1,5 @@
 import {DetailsManager, EmptyDetails} from "./util/details-manager";
+import DisplayableArray from "./displayable-array";
 
 class SortableArray {
     private comparisons: number;
@@ -56,6 +57,10 @@ class SortableArray {
 
     public getDetails() {
         return this.details;
+    }
+
+    public getDisplayableArray(): DisplayableArray {
+        return new DisplayableArray(this.getValues(), this.getDetails().getColors());
     }
 }
 

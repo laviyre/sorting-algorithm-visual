@@ -1,8 +1,16 @@
-import React from "react";
+import SortVisualiser from "./SortVisualiser/SortVisualiser";
+import ContentCSS from "./Content.module.css";
+import DisplayableArray from "../../sorting-algorithms/displayable-array";
 
-function Content() {
+interface ContentProps {
+    arr: DisplayableArray
+}
+
+function Content({arr}: ContentProps) {
     return (
-        <article></article>
+        <article className = {ContentCSS.content}>
+            <SortVisualiser arr = {arr}/>
+        </article>
     );
 }
 

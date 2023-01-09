@@ -1,4 +1,5 @@
 import { DropdownInstanceProps } from "./Input"
+import InputCSS from "./Input.module.css";
 
 interface DropdownProps {
     modes: Array<string>,
@@ -7,7 +8,7 @@ interface DropdownProps {
 function Dropdown({name, onChange, inputProperties} : DropdownInstanceProps) {
     return (
         <div>
-            <select id = {name}>
+            <select id = {name} className = {InputCSS.select}>
                 {inputProperties.modes.map((mode, i) => 
                     <option value = {mode} key = {i}>{mode}</option>
                 )}

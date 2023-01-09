@@ -2,4 +2,5 @@
     display: grid;
     width: 100%;
     grid-auto-rows: auto 40px;
+    justify-items: center;
 }
