@@ -11,11 +11,14 @@ interface SettingsProps {
     shuffleModes: Array<string>,
 }
 
+interface SettingsPropsInstance extends SettingsProps {
+    active: boolean,
+}
 
-function Settings({shuffleMode, algorithm, size, speed, algorithms, shuffleModes}: SettingsProps) {
+function Settings({shuffleMode, algorithm, size, speed, active, algorithms, shuffleModes}: SettingsPropsInstance) {
 
     return(
-        <form className = {SettingsCSS.settings}>
+        <form className = {SettingsCSS.settings + ` ${active ? SettingsCSS.active : ""}`}>
             <Input name = "Shuffle Mode" value = {shuffleMode} inputProperties = {{modes: shuffleModes}}></Input>
             <Input name = "Algorithm" value = {algorithm} inputProperties = {{modes: algorithms}}></Input>
             <Input name = "Size" value = {size} inputProperties = {{min: 1, max: 1000}}></Input>

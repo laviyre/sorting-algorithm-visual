@@ -9,15 +9,6 @@ import { allAlgorithms } from "../../sorting-algorithms/algorithms";
 import ShuffleManager from "../../sorting-algorithms/util/shuffle";
 
 function App() {
-
-    /**
-     * Shuffle Mode => shuffleModes. strings pass back.
-     * Algorithm => allAlgorithms. strings pass back.
-     * Size (number)
-     * Speed (number)
-     * Displayable Array
-     */
-
     let currArray: SortableArray;
 
     const [size, setSize] = useState(1);
@@ -25,28 +16,33 @@ function App() {
     const [algorithm, setAlgorithm] = useState("Bubble Sort");
     const [mode, setMode] = useState("Normal");
     const [arr, setArr] = useState(SortableArrayFactory.createSortedArray(1).getDisplayableArray());
+    const [sorting, setSorting] = useState(false);
 
-    function updateSize(n: number) {
+    function updateSize(n: number): void {
         setSize(n);
         updateArray(SortableArrayFactory.createSortedArray(n));
     }
 
-    function updateArray(arr: SortableArray) {
+    function updateArray(arr: SortableArray): void {
         currArray = arr;
         setArr(currArray.getDisplayableArray());
     }
 
-    function shuffle() {
+    function shuffle(): void {
         updateSize(size);
         let newVals = ShuffleManager.shuffle(currArray.getValues(), mode);
         updateArray(SortableArrayFactory.createDefaultArray(newVals));
     }
 
+    function start(): void {
+        setSorting(!sorting);
+    }
+
     return (
         <div className="App">
             <Header name = {"Sorting Algorithms Visualiser"}/>
-            <Sidebar    start = {{active: true, fun: () => console.log("start")}} 
-                        shuffle = {{active: true, fun: shuffle}}
+            <Sidebar    start = {{active: true, fun: start}} 
+                        shuffle = {{active: !sorting, fun: shuffle}}
                         shuffleMode = {{val: mode, onChange: setMode}}
                         algorithm = {{val: algorithm, onChange: setAlgorithm}}
                         size = {{val: size, onChange: updateSize}}

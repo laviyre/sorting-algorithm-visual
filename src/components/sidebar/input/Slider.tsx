@@ -1,4 +1,3 @@
-import React, { useState} from "react";
 import { SliderInstanceProps } from "./Input";
 import InputCSS from "./Input.module.css";
 

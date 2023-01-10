@@ -12,6 +12,10 @@ button.active {
     cursor: pointer;
 }
 
+button:not(.active) {
+    filter: brightness(75%);
+}
+
 button.active:hover {
     filter: brightness(110%);
 }

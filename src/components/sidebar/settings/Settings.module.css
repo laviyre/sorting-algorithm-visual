@@ -4,3 +4,8 @@
     grid-auto-rows: auto 40px;
     justify-items: center;
 }
+
+.settings:not(.active) {
+    pointer-events: none;
+    filter: brightness(75%);
+}
