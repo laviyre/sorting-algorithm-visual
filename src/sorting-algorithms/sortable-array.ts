@@ -69,7 +69,11 @@ const SortableArrayFactory = (() => {
         return new SortableArray(values, new EmptyDetails())
     }
 
-    return {createDefaultArray};
+    const createSortedArray = (size: number): SortableArray => {
+        return createDefaultArray(new Array(size).fill(1).map((val, i) => i+1));
+    }
+
+    return {createDefaultArray, createSortedArray};
 })();
 
 export {SortableArray, SortableArrayFactory};

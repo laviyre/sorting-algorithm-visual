@@ -30,4 +30,24 @@ const sortingAlgorithms: Array<SortingAlgorithm> = [
     new HeapSort(true),
 ];
 
+class SortingAlgorithms {
+    private algorithms: Record<string, SortingAlgorithm>;
+
+    constructor(sortingAlgorithms: Array<SortingAlgorithm>) {
+        this.algorithms = {};
+        sortingAlgorithms.forEach(alg => {this.algorithms[alg.getName()] = alg});
+    }
+
+    public getAlgorithm(name: string): SortingAlgorithm {
+        return this.algorithms[name];
+    }
+
+    public getAlgorithmNames(): Array<string> {
+        return Object.keys(this.algorithms);
+    }
+}
+
+const allAlgorithms = new SortingAlgorithms(sortingAlgorithms);
+
 export default sortingAlgorithms;
+export {allAlgorithms}
