@@ -1,0 +1,49 @@
+:root {
+    --dark-background: rgb(24, 26, 31);
+    --background: rgb(40, 43, 51);
+    --light-background: rgb(55, 58, 68);
+    --dark-button: rgb(59, 62, 70);
+    --red: rgb(236, 90, 84);
+    --blue: rgb(81, 141, 246);
+    --green: rgb(132, 217, 153);
+    --light-blue: rgb(130, 141, 165);
+    --purple: rgb(186, 85, 192);
+    --yellow: rgb(222, 197, 103);
+    --header: rgb(252, 252, 252);
+    --text: rgb(148, 154, 170);
+
+    font-size: 16px;
+
+    --header-height: 90px;
+    --sidebar-width: 250px;
+    font-family: Helvetica;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+body, .root, .App {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background);
+}
+
+.App {
+    display: grid;
+    grid-template: var(--header-height) 1fr / var(--sidebar-width) 1fr;
+}
+
+header {
+    background-color: var(--dark-background);
+    grid-column: 1 / span 2;
+}
+
+aside {
+    background-color: var(--background);
+}
+
+article {
+    background-color: var(--light-background);
+}

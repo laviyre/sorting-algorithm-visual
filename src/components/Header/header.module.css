@@ -1,0 +1,11 @@
+.head {
+    display: flex;
+    align-items: center;
+    padding-left: 3rem;
+}
+
+h1 {
+    font-size: 3rem;
+    color: var(--header);
+    font-weight: 900;
+}

@@ -1,0 +1,35 @@
+.text {
+    color: var(--header);
+}
+
+.select {
+    width: 130px;
+    height: 30px;
+    text-align: center;
+}
+
+.slider-text {
+    width: 30px;
+    height: 15px;
+}
+
+.select, .slider-text {
+    background-color: var(--light-background);
+    border: none;
+    outline: none;
+    color: var(--text);
+}
+
+.slider-parent {
+    display: flex;
+    align-items: center;
+}
+
+.slider-text::-webkit-inner-spin-button, .slider-text::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.slider-text {
+    -moz-appearance: textfield;
+}
