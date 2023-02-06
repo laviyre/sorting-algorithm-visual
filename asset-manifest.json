@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/github.io/sorting-algorithm-visual/static/css/main.b319dda8.css",
+    "main.js": "/github.io/sorting-algorithm-visual/static/js/main.d9df8a15.js",
+    "index.html": "/github.io/sorting-algorithm-visual/index.html",
+    "main.b319dda8.css.map": "/github.io/sorting-algorithm-visual/static/css/main.b319dda8.css.map",
+    "main.d9df8a15.js.map": "/github.io/sorting-algorithm-visual/static/js/main.d9df8a15.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b319dda8.css",
+    "static/js/main.d9df8a15.js"
+  ]
+}
