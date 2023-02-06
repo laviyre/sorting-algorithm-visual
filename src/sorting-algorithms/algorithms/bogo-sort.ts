@@ -1,26 +1,26 @@
-import SortingAlgorithm from "./sorting-algorithm";
+import  { SortingAlgorithmAsync } from "./sorting-algorithm";
 import { SortableArray } from "../sortable-array";
 
-class BogoSort implements SortingAlgorithm {
-    sort(arr: SortableArray): Array<any> {
-        while (!this.sorted(arr))
-            this.shuffle(arr);
+class BogoSort implements SortingAlgorithmAsync {
+    async sort(arr: SortableArray): Promise<Array<any>> {
+        while (!await this.sorted(arr))
+            await this.shuffle(arr);
 
         return arr.getValues();
     }
 
-    shuffle(arr: SortableArray): void {
+    async shuffle(arr: SortableArray): Promise<void> {
         for (let i = 0; i < arr.getValues().length; i++) {
             let j = Math.floor(Math.random() * (i+1));
-            arr.swap(i, j);
+            await arr.swap(i, j);
         }
     }
 
-    sorted(arr: SortableArray): boolean {
+    async sorted(arr: SortableArray): Promise<boolean> {
         let i = 1;
         while (i < arr.getValues().length)
         {
-            if (arr.compare(i, i-1))
+            if (await arr.compare(i, i-1))
                 return false;
 
             i++;

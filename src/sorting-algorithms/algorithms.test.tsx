@@ -1,6 +1,6 @@
-import sortingAlgorithms from "./algorithms";
-import SortingAlgorithm from "./algorithms/sorting-algorithm";
-import SortingHandler from "./sorting-handler";
+import asyncSortingAlgorithms from "./algorithms";
+import { SortingAlgorithmAsync } from "./algorithms/sorting-algorithm";
+import { SortableArrayFactory } from "./sortable-array";
 
 
 describe("Test sorting algorithms correctly sort", () => {
@@ -16,14 +16,13 @@ describe("Test sorting algorithms correctly sort", () => {
         output: [-2147483648, -1962176217, -1798319505, -1183362834, -1153895187, -878402925, 2147483647]}
     ]
 
-    sortingAlgorithms.forEach(algorithm => sortingAlgorithmTest(algorithm));
+    asyncSortingAlgorithms.forEach(algorithm => sortingAlgorithmTest(algorithm));
 
-    function sortingAlgorithmTest(algorithm: SortingAlgorithm) {
-        let handler: SortingHandler = new SortingHandler();
+    async function sortingAlgorithmTest(algorithm: SortingAlgorithmAsync) {
 
         test(`${algorithm.getName()}`, () => {
-            sortingAlgorithmInOrder.forEach(sortTest => {
-                expect(handler.sort(sortTest.input, algorithm)).toEqual(sortTest.output);
+            sortingAlgorithmInOrder.forEach(async sortTest => {
+                expect(await algorithm.sort(SortableArrayFactory.createTimelessArray(sortTest.input))).toEqual(sortTest.output);
             })
         })
 }

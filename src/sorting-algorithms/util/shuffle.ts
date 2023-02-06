@@ -20,7 +20,7 @@ const ShuffleManager = (() => {
         let newVals = vals.filter(i => true);
 
         for (let i = 0; i < vals.length; i++) {
-            swap(i, i+Math.min(Math.max(0, Math.floor((2*Math.random()-1)*Math.sqrt(vals.length))), vals.length-1),newVals);
+            swap(i, i+Math.min(Math.max(0, Math.floor((2*Math.random()-1)*Math.sqrt(vals.length))), vals.length-1-i),newVals);
         }
 
         return newVals;

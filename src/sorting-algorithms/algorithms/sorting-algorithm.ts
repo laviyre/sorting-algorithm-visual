@@ -1,8 +1,8 @@
 import {SortableArray} from "../sortable-array";
 
-interface SortingAlgorithm {
-    sort(values: SortableArray): Array<any>;
+interface SortingAlgorithmAsync {
+    sort(values: SortableArray): Promise<Array<any>>;
     getName(): string;
 }
 
-export default SortingAlgorithm;
+export type {SortingAlgorithmAsync};

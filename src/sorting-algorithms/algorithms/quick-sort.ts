@@ -1,4 +1,4 @@
-import SortingAlgorithm from "./sorting-algorithm";
+import  { SortingAlgorithmAsync } from "./sorting-algorithm";
 import { SortableArray } from "../sortable-array";
 
 enum PartitionType {
@@ -20,36 +20,36 @@ const PartitionFunctions = (() => {
         return hoare;
     }
 
-    function lomuto(arr: SortableArray, start: number, end: number, pivot: Function) {
-        let pivotIndex = pivot(arr, start, end);
-        let pivotValue = arr.getVal(pivotIndex);
+    async function lomuto(arr: SortableArray, start: number, end: number, pivot: Function) {
+        let pivotIndex = await pivot(arr, start, end);
+        let pivotValue = await arr.getVal(pivotIndex);
         
         // Move pivot to end of array
-        arr.swap(pivotIndex, end);
+        await arr.swap(pivotIndex, end);
 
         pivotIndex = start-1;
 
         for (let i = start; i < end; i++) {
-            if (arr.getVal(i) <= pivotValue) 
-                arr.swap(i, ++pivotIndex);
+            if (await arr.getVal(i) <= pivotValue) 
+                await arr.swap(i, ++pivotIndex);
         }
 
-        arr.swap(++pivotIndex, end);
+        await arr.swap(++pivotIndex, end);
         return pivotIndex;
     }
 
-    function hoare(arr: SortableArray, start: number, end: number, pivot: Function) {
-        let pivotValue = arr.getVal(pivot(arr, start, end));
+    async function hoare(arr: SortableArray, start: number, end: number, pivot: Function) {
+        let pivotValue = await arr.getVal(await pivot(arr, start, end));
 
         let left = start - 1;
         let right = end + 1;
 
         while (true) {
-            while (arr.getVal(++left) < pivotValue);
-            while (arr.getVal(--right) > pivotValue);
+            while (await arr.getVal(++left) < pivotValue);
+            while (await arr.getVal(--right) > pivotValue);
             if (left >= right) return right;
 
-            arr.swap(left, right);
+            await arr.swap(left, right);
         }
     }
 
@@ -72,26 +72,26 @@ const PivotFunctions = (() => {
         }
     }
 
-    function first(arr: SortableArray, start: number, end: number): number {
+    async function first(arr: SortableArray, start: number, end: number): Promise<number> {
         return start;
     }
 
-    function last(arr: SortableArray, start: number, end: number): number {
+    async function last(arr: SortableArray, start: number, end: number): Promise<number> {
         return end;
     }
 
-    function middle(arr: SortableArray, start: number, end: number): number {
+    async function middle(arr: SortableArray, start: number, end: number): Promise<number> {
         return Math.floor((start + end)/2);
     }
 
-    function random(arr: SortableArray, start: number, end: number): number {
+    async function random(arr: SortableArray, start: number, end: number): Promise<number> {
         let rand = Math.floor(Math.random() * (end - start));
         return start + rand;
     }
 
-    function median(arr: SortableArray, start: number, end: number): number {
+    async function median(arr: SortableArray, start: number, end: number): Promise<number> {
         let i = start, j = Math.floor((start + end)/2), k = end;
-        let I = arr.getVal(i), J = arr.getVal(j), K = arr.getVal(k);
+        let I = await arr.getVal(i), J = await arr.getVal(j), K = await arr.getVal(k);
         if ((I <= J && J <= K) || (K <= J && J <= I)) return j;
         if ((J <= I && I <= K) || (K <= I && I <= J)) return i;
         return k;
@@ -100,7 +100,7 @@ const PivotFunctions = (() => {
     return {getPivot};
 })();
 
-class QuickSort implements SortingAlgorithm {
+class QuickSort implements SortingAlgorithmAsync {
     private partition: Function;
     private pivot: Function;
     private name: string;
@@ -116,22 +116,22 @@ class QuickSort implements SortingAlgorithm {
         this.name = `Quicksort (Partition: ${PartitionType[partition]}, Pivot: ${PivotType[pivot]})`;
     }
 
-    sort(arr: SortableArray, start: number = 0, end: number = arr.getValues().length-1): Array<any> {
-        this.quickSort(arr, 0, arr.getValues().length-1);
+    async sort(arr: SortableArray, start: number = 0, end: number = arr.getValues().length-1): Promise<Array<any>> {
+        await this.quickSort(arr, 0, arr.getValues().length-1);
         return arr.getValues();
     }
 
-    quickSort(arr: SortableArray, start: number, end: number): void {
+    async quickSort(arr: SortableArray, start: number, end: number): Promise<void> {
         if (start < 0 || start >= end)
             return;
 
-        let p = this.partition(arr, start, end, this.pivot);
+        let p = await this.partition(arr, start, end, this.pivot);
 
         // Hoare Partition includes pivot whereas Lomuto does not
         let adjustment = this.partition === PartitionFunctions.getPartition(PartitionType.Hoare) ? 1 : 0;
 
-        this.quickSort(arr, start, p-1 + adjustment);
-        this.quickSort(arr, p+1, end);
+        await this.quickSort(arr, start, p-1 + adjustment);
+        await this.quickSort(arr, p+1, end);
     }
 
     getName() { return this.name; }

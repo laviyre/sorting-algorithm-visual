@@ -1,16 +1,16 @@
-import SortingAlgorithm from "./sorting-algorithm";
+import  { SortingAlgorithmAsync } from "./sorting-algorithm";
 import { SortableArray } from "../sortable-array";
 
-class GnomeSort implements SortingAlgorithm {
-    sort(arr: SortableArray): Array<any> {
+class GnomeSort implements SortingAlgorithmAsync {
+    async sort(arr: SortableArray): Promise<Array<any>> {
         if (arr.getValues().length === 0) return [];
         let pos = 0;
 
         while (pos < arr.getValues().length) {
-            if (pos === 0 || arr.compare(pos-1, pos))
+            if (pos === 0 || await arr.compare(pos-1, pos))
                 pos++;
             else 
-                arr.swap(pos, --pos);
+                await arr.swap(pos, --pos);
         }
 
         return arr.getValues();

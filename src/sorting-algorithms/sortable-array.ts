@@ -1,46 +1,50 @@
-import {DetailsManager, EmptyDetails} from "./util/details-manager";
+import {DefaultDetails} from "./util/details-manager";
 import DisplayableArray from "./displayable-array";
 
 class SortableArray {
     private comparisons: number;
     private arrayAccesses: number;
     private values: Array<any>;
-    private details: DetailsManager;
+    private details: DefaultDetails;
 
-    constructor(values: Array<any>, details: DetailsManager) {
+    constructor(values: Array<any>, details: DefaultDetails) {
         this.comparisons = 0;
         this.arrayAccesses = 0;
         this.values = [...values];
         this.details = details;
     }
 
-    public incComp(i: number, j: number): void {
+    public async incComp(i: number, j: number): Promise<void> {
         this.comparisons++;
+        await this.details.compare(i,j);
     }
 
-    public incAA(i: number): void {
+    public async incAA(i: number): Promise<void> {
         this.arrayAccesses++;
+        await this.details.access(i);
     }
 
-    public getVal(i: number): number {
-        this.incAA(i);
+    public async getVal(i: number): Promise<number> {
+        await this.incAA(i);
         return this.values[i];
     }
 
-    public setVal(i: number, val: number): void {
-        this.incAA(i);
+    public async setVal(i: number, val: number): Promise<void> {
+        await this.incAA(i);
         this.values[i] = val;
     }
 
-    public swap(i: number, j: number): void {
-        let temp = this.getVal(i);
-        this.setVal(i, this.getVal(j));
-        this.setVal(j, temp);
+    public async swap(i: number, j: number): Promise<void> {
+        let temp = await this.getVal(i);
+        await this.setVal(i, await this.getVal(j));
+        await this.setVal(j, temp);
     }
 
-    public compare(i: number, j: number): boolean {
-        this.incComp(i,j);
-        return this.getVal(i) < this.getVal(j);
+    public async compare(i: number, j: number): Promise<boolean> {
+        await this.incComp(i,j);
+        let iValue = await this.getVal(i)
+        let jValue = await this.getVal(j)
+        return iValue < jValue;
     }
 
     public getComparisons() {
@@ -62,18 +66,36 @@ class SortableArray {
     public getDisplayableArray(): DisplayableArray {
         return new DisplayableArray(this.getValues(), this.getDetails().getColors());
     }
+
+    public getResetDisplayableArray(): DisplayableArray {
+        this.getDetails().resetColours();
+        return this.getDisplayableArray();
+    }
+
+    public async checkSorted(): Promise<boolean> {
+        for (let i = 1; i < this.getValues().length; i++) {
+            if (!(await this.compare(i-1, i)))
+                return false;
+        }
+
+        return true;
+    }
 }
 
 const SortableArrayFactory = (() => {
-    const createDefaultArray = (values: Array<any>): SortableArray => {
-        return new SortableArray(values, new EmptyDetails())
+    const createSortedAsyncArray = (size: number, speed: number): SortableArray => {
+        return new SortableArray(new Array(size).fill(1).map((val, i) => i+1), new DefaultDetails(speed, size));
     }
 
-    const createSortedArray = (size: number): SortableArray => {
-        return createDefaultArray(new Array(size).fill(1).map((val, i) => i+1));
+    const createAsyncArray = (speed: number, vals: Array<any>): SortableArray => {
+        return new SortableArray(vals, new DefaultDetails(speed, vals.length));
     }
 
-    return {createDefaultArray, createSortedArray};
+    const createTimelessArray = (vals: Array<any>): SortableArray => {
+        return createAsyncArray(Math.pow(10, 12), vals);
+    }
+
+    return {createTimelessArray, createAsyncArray, createSortedAsyncArray};
 })();
 
 export {SortableArray, SortableArrayFactory};

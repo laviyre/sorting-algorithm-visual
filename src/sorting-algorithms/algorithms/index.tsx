@@ -1,3 +1,5 @@
+import  { SortingAlgorithmAsync } from "./sorting-algorithm";
+
 import BubbleSort from "./bubble-sort";
 import InsertionSort from "./insertion-sort";
 import SelectionSort from "./selection-sort";
@@ -7,13 +9,11 @@ import BogoSort from "./bogo-sort";
 import ThreeStooges from "./three-stooges";
 import BozoSort from "./bozo-sort";
 import ShellSort from "./shell-sort";
-import SortingAlgorithm from "./sorting-algorithm";
 import { QuickSortFactory } from "./quick-sort";
 import HeapSort from "./heap-sort";
 import CocktailShakerSort from "./cocktail-shaker-sort";
 
-
-const sortingAlgorithms: Array<SortingAlgorithm> = [
+const asyncSortingAlgorithms: Array<SortingAlgorithmAsync> = [
     new BubbleSort(),
     new SelectionSort(),
     new InsertionSort(),
@@ -28,17 +28,17 @@ const sortingAlgorithms: Array<SortingAlgorithm> = [
     ...QuickSortFactory.getHoareQuickSorts(),
     new HeapSort(false),
     new HeapSort(true),
-];
+]
 
 class SortingAlgorithms {
-    private algorithms: Record<string, SortingAlgorithm>;
+    private algorithms: Record<string, SortingAlgorithmAsync>;
 
-    constructor(sortingAlgorithms: Array<SortingAlgorithm>) {
+    constructor(sortingAlgorithms: Array<SortingAlgorithmAsync>) {
         this.algorithms = {};
         sortingAlgorithms.forEach(alg => {this.algorithms[alg.getName()] = alg});
     }
 
-    public getAlgorithm(name: string): SortingAlgorithm {
+    public getAlgorithm(name: string): SortingAlgorithmAsync {
         return this.algorithms[name];
     }
 
@@ -47,7 +47,7 @@ class SortingAlgorithms {
     }
 }
 
-const allAlgorithms = new SortingAlgorithms(sortingAlgorithms);
+const allAlgorithms = new SortingAlgorithms(asyncSortingAlgorithms);
 
-export default sortingAlgorithms;
+export default asyncSortingAlgorithms;
 export {allAlgorithms}

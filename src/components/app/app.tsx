@@ -4,38 +4,50 @@ import Content from "../Content/Content";
 import Sidebar from "../Sidebar/Sidebar";
 
 import { SortableArray, SortableArrayFactory } from "../../sorting-algorithms/sortable-array";
-//import SortingHandler from "../../sorting-algorithms/sorting-handler";
 import { allAlgorithms } from "../../sorting-algorithms/algorithms";
 import ShuffleManager from "../../sorting-algorithms/util/shuffle";
+import DisplayableArray from "../../sorting-algorithms/displayable-array";
+
+
 
 function App() {
-    let currArray: SortableArray;
-
     const [size, setSize] = useState(1);
     const [speed, setSpeed] = useState(1);
     const [algorithm, setAlgorithm] = useState("Bubble Sort");
     const [mode, setMode] = useState("Normal");
-    const [arr, setArr] = useState(SortableArrayFactory.createSortedArray(1).getDisplayableArray());
+    const [arr, setArr] = useState(new DisplayableArray(Array(1), Array(0)));
+    const [sortArr, setSortArr] = useState(SortableArrayFactory.createSortedAsyncArray(1, speed))
     const [sorting, setSorting] = useState(false);
 
     function updateSize(n: number): void {
         setSize(n);
-        updateArray(SortableArrayFactory.createSortedArray(n));
+        updateArray(SortableArrayFactory.createSortedAsyncArray(n, speed));
     }
 
-    function updateArray(arr: SortableArray): void {
-        currArray = arr;
-        setArr(currArray.getDisplayableArray());
+    function updateArray(newArr: SortableArray): void {
+        setSortArr(newArr);     
+        setArr(newArr.getDisplayableArray());
+        newArr.getDetails().setUpdateParent(() => setArr(newArr.getDisplayableArray()));
+    }
+
+    function updateSpeed(n: number): void {
+        setSpeed(n);
+        sortArr.getDetails().setSpeed(n);
     }
 
     function shuffle(): void {
-        updateSize(size);
-        let newVals = ShuffleManager.shuffle(currArray.getValues(), mode);
-        updateArray(SortableArrayFactory.createDefaultArray(newVals));
+        let newVals = ShuffleManager.shuffle(sortArr.getValues(), mode);
+        updateArray(SortableArrayFactory.createAsyncArray(speed, newVals));
     }
 
-    function start(): void {
+    async function start(): Promise<void> {
         setSorting(!sorting);
+        let currAlgorithm = allAlgorithms.getAlgorithm(algorithm);
+        console.log(await currAlgorithm.sort(sortArr));
+        setArr(sortArr.getResetDisplayableArray());
+        await sortArr.checkSorted();
+        setArr(sortArr.getResetDisplayableArray());
+        setSorting(false);
     }
 
     return (
@@ -46,7 +58,7 @@ function App() {
                         shuffleMode = {{val: mode, onChange: setMode}}
                         algorithm = {{val: algorithm, onChange: setAlgorithm}}
                         size = {{val: size, onChange: updateSize}}
-                        speed = {{val: speed, onChange: setSpeed}}
+                        speed = {{val: speed, onChange: updateSpeed}}
                         algorithms = {allAlgorithms.getAlgorithmNames()}
                         shuffleModes = {["Normal", "Weak"]}/>
             <Content arr = {arr}/>

@@ -17,7 +17,7 @@ class DisplayableArray {
 
         for (let i = 0; i < values.length; i++) {
             let val = values[i];
-            let color = colors[i] == null ? "" : colors[i];
+            let color = colors[i] === "" || colors[i] === undefined ? "" : colors[i];
 
             if (val > this.max)
                 this.max = val;
