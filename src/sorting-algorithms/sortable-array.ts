@@ -6,6 +6,7 @@ class SortableArray {
     private arrayAccesses: number;
     private values: Array<any>;
     private details: DefaultDetails;
+    private incrementMode: boolean = true;
 
     constructor(values: Array<any>, details: DefaultDetails) {
         this.comparisons = 0;
@@ -15,12 +16,12 @@ class SortableArray {
     }
 
     public async incComp(i: number, j: number): Promise<void> {
-        this.comparisons++;
+        if (this.incrementMode) this.comparisons++;
         await this.details.compare(i,j);
     }
 
     public async incAA(i: number): Promise<void> {
-        this.arrayAccesses++;
+        if (this.incrementMode) this.arrayAccesses++;
         await this.details.access(i);
     }
 
@@ -79,6 +80,10 @@ class SortableArray {
         }
 
         return true;
+    }
+
+    public setIncrementMode(result: boolean) {
+        this.incrementMode = result;
     }
 }
 

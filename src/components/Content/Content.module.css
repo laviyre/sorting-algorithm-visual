@@ -1,9 +1,17 @@
 .content {
     display: grid;
+    grid-template: 80px 1fr / 1fr 250px 250px;
+    align-items: center;
+}
+
+.content > div {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text);
 }
 
 .sort {
-    margin: 70px 80px;
+    margin: 0px 70px 80px 70px;
     background-color: var(--dark-background);
     border-radius: 20px;
 }
@@ -18,4 +26,6 @@ section {
     padding: 30px;
     display: flex;
     align-items: flex-end;
+    grid-column: 1 / span 3;
+    align-self: stretch;
 }

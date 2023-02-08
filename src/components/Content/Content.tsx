@@ -4,11 +4,16 @@ import DisplayableArray from "../../sorting-algorithms/displayable-array";
 
 interface ContentProps {
     arr: DisplayableArray
+    comparisons: number,
+    arrayAccesses: number,
 }
 
-function Content({arr}: ContentProps) {
+function Content({arr, comparisons, arrayAccesses}: ContentProps) {
     return (
         <article className = {ContentCSS.content}>
+            <div></div>
+            <div>Comparisons: {comparisons}</div>
+            <div>Array Accesses: {arrayAccesses}</div>
             <SortVisualiser arr = {arr}/>
         </article>
     );

@@ -43,8 +43,10 @@ function App() {
     async function start(): Promise<void> {
         setSorting(!sorting);
         let currAlgorithm = allAlgorithms.getAlgorithm(algorithm);
+        sortArr.setIncrementMode(true);
         console.log(await currAlgorithm.sort(sortArr));
         setArr(sortArr.getResetDisplayableArray());
+        sortArr.setIncrementMode(false);
         await sortArr.checkSorted();
         setArr(sortArr.getResetDisplayableArray());
         setSorting(false);
@@ -61,7 +63,7 @@ function App() {
                         speed = {{val: speed, onChange: updateSpeed}}
                         algorithms = {allAlgorithms.getAlgorithmNames()}
                         shuffleModes = {["Normal", "Weak"]}/>
-            <Content arr = {arr}/>
+            <Content arr = {arr} comparisons = {sortArr.getComparisons()} arrayAccesses = {sortArr.getArrayAccesses()}/>
         </div>
     )
 }
