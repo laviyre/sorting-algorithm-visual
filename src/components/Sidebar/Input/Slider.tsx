@@ -23,7 +23,7 @@ function Slider({name, value, inputProperties} : SliderInstanceProps) {
 
     function localChangeInput(event: React.ChangeEvent<HTMLInputElement>): void {
         let logVal = +event.target.value;
-        let val = Math.ceil(Math.pow(10, logVal));
+        let val = Math.round(Math.pow(10, logVal));
         value.onChange(val);
     }
 

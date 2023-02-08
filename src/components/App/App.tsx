@@ -53,7 +53,7 @@ function App() {
     return (
         <div className="App">
             <Header name = {"Sorting Algorithms Visualiser"}/>
-            <Sidebar    start = {{active: true, fun: start}} 
+            <Sidebar    start = {{active: !sorting, fun: start}} 
                         shuffle = {{active: !sorting, fun: shuffle}}
                         shuffleMode = {{val: mode, onChange: setMode}}
                         algorithm = {{val: algorithm, onChange: setAlgorithm}}
