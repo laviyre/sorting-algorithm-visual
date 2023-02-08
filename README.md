@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+# Sorting Algorithm Visualiser
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Demo Link
+[demo](https://laviyre.github.io/sorting-algorithm-visual/)
 
-## Available Scripts
+### About
+This is a project to visualise sorting algorithms. Each operation on the array takes a fixed amount of time, helping the
+user visualise both the algorithm as well as how fast the algorithm is under different conditions.
 
-In the project directory, you can run:
+### Screenshots
 
-### `npm start`
+![Bubble Sort](./readme_img/bubble_sort.png)
+An array in the middle of being sorted by bubble sort
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![Merge Sort](./readme_img/merge_sort.png)
+A much larger array in the middle of being sorted by merge sort
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![Weakly Shuffled](./readme_img/weakly_shuffled.png)
+An example of a weakly shuffled array being ready to be sorted by Insertion Sort, an algorithm which is typically slow for random data
+but can be fast for nearly sorted data.
 
-### `npm test`
+### Technologies
+The project is a simple client side project that was built with React, Typescript and pure CSS.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Setup
+Visit the [demo](https://laviyre.github.io/sorting-algorithm-visual/) link.
 
-### `npm run build`
+Alternatively
+- Download/Clone the repository
+- run `npm install`
+- run `npm start`
+- Visit `localhost:3000`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### How to use
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Guide](./readme_img/project.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Press the Start Button to run the sorting algorithm selected
+- Press the Shuffle Button to shuffle the data presented
+- The Shuffle Mode alters how the data is shuffled
+    - A normal shuffle completely randomises the data with Fisher-Yates shuffle
+    - A weak shuffle only moves each element to a nearby location
+- The Algorithm determines which sorting algorithm is used
+- Modify the size slider to change how many items are in the array
+- Modify the speed slider to change how many operations are performed a second
