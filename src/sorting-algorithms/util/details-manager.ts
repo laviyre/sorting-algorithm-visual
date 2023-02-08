@@ -11,7 +11,7 @@ class EmptyDetails extends DetailsManager {
 }
 
 class DefaultDetails extends DetailsManager {
-    private readonly rate: number = 500; // How many milliseconds per operation at speed 1
+    private readonly rate: number = 1000; // How many milliseconds per operation at speed 1
     private readonly minDelay: number = 50; // Smallest possible gap between for visual updates
     private operationIncrement: number = 500; // ms equivalent of an operation.
     private progress: number = 0; // Represents progress to next frame
