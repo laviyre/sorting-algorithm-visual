@@ -5,7 +5,7 @@
     justify-items: center;
 }
 
-.settings:not(.active) {
+.settings:not(.active) > *:not(:has([name="Speed"])) {
     pointer-events: none;
     filter: brightness(75%);
 }
