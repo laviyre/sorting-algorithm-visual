@@ -22,7 +22,6 @@ const PartitionFunctions = (() => {
 
     async function lomuto(arr: SortableArray, start: number, end: number, pivot: Function) {
         let pivotIndex = await pivot(arr, start, end);
-        let pivotValue = await arr.getVal(pivotIndex);
         
         // Move pivot to end of array
         await arr.swap(pivotIndex, end);
@@ -30,7 +29,7 @@ const PartitionFunctions = (() => {
         pivotIndex = start-1;
 
         for (let i = start; i < end; i++) {
-            if (await arr.getVal(i) <= pivotValue) 
+            if (await arr.compare(i, end)) // Compare with pivot index
                 await arr.swap(i, ++pivotIndex);
         }
 
@@ -39,17 +38,20 @@ const PartitionFunctions = (() => {
     }
 
     async function hoare(arr: SortableArray, start: number, end: number, pivot: Function) {
-        let pivotValue = await arr.getVal(await pivot(arr, start, end));
+        let pivotIndex = await pivot(arr, start, end);
 
         let left = start - 1;
         let right = end + 1;
 
         while (true) {
-            while (await arr.getVal(++left) < pivotValue);
-            while (await arr.getVal(--right) > pivotValue);
+            while (await arr.compare(++left, pivotIndex));
+            while (await arr.compare(pivotIndex, --right));
+            
             if (left >= right) return right;
 
             await arr.swap(left, right);
+            if (pivotIndex === left) pivotIndex = right;
+            else if (pivotIndex === right) pivotIndex = left;
         }
     }
 
