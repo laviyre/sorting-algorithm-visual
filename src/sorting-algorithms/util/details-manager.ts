@@ -52,7 +52,6 @@ class DefaultDetails extends DetailsManager {
 
     private addValue(i: number): void {
         if (this.arr == null) return;
-        console.log(this.arr.getValues()[i]);
         SoundManager.addValue(this.arr.getValues()[i]);
     }
 
