@@ -1,3 +1,6 @@
+import { SortableArray } from "../sortable-array";
+import SoundManager from "./sound-manager";
+
 abstract class DetailsManager {
     abstract access(i: number): void;
     abstract compare(i: number, j: number): void;
@@ -15,10 +18,10 @@ class DefaultDetails extends DetailsManager {
     private readonly minDelay: number = 50; // Smallest possible gap between for visual updates
     private operationIncrement: number = 500; // ms equivalent of an operation.
     private progress: number = 0; // Represents progress to next frame
+    private arr: SortableArray | null;
     
     private colors: Array<string>;
 
-    private justUpdated: boolean = false;
     private updateParent: Function;
 
     /**
@@ -33,17 +36,31 @@ class DefaultDetails extends DetailsManager {
 
         this.colors = new Array(size).fill("");
         this.updateParent = () => {}; //Empty call to define function
+        this.arr = null;
+    }
+
+    assignArray(arr: SortableArray): void {
+        this.arr = arr;
     }
     
     async access(i: number): Promise<void> {
         this.colors[i] = "red";
+        this.addValue(i);
 
         await this.update();
+    }
+
+    private addValue(i: number): void {
+        if (this.arr == null) return;
+        console.log(this.arr.getValues()[i]);
+        SoundManager.addValue(this.arr.getValues()[i]);
     }
 
     async compare(i: number, j: number): Promise<void> {
         this.colors[i] = "green";
         this.colors[j] = "green";
+        this.addValue(i);
+        this.addValue(j);
         await this.update();
     }
 
@@ -53,10 +70,11 @@ class DefaultDetails extends DetailsManager {
 
         if (this.progress >= this.minDelay) {
             this.progress %= this.minDelay;
-            await this.pause(Math.max(this.operationIncrement, this.minDelay));
+            let duration = Math.max(this.operationIncrement, this.minDelay);
+            await this.pause(duration);
+            SoundManager.makeSound(duration);
             this.updateParent();
             this.resetColours();
-            this.justUpdated = true;
         }
     }
 

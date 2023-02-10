@@ -7,6 +7,7 @@ import { SortableArray, SortableArrayFactory } from "../../sorting-algorithms/so
 import { allAlgorithms } from "../../sorting-algorithms/algorithms";
 import ShuffleManager from "../../sorting-algorithms/util/shuffle";
 import DisplayableArray from "../../sorting-algorithms/displayable-array";
+import SoundManager from "../../sorting-algorithms/util/sound-manager";
 
 
 
@@ -42,6 +43,9 @@ function App() {
 
     async function start(): Promise<void> {
         setSorting(!sorting);
+
+        SoundManager.start(arr.minValue(), arr.maxValue());
+
         let currAlgorithm = allAlgorithms.getAlgorithm(algorithm);
         sortArr.setIncrementMode(true);
         console.log(await currAlgorithm.sort(sortArr));

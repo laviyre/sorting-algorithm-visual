@@ -13,6 +13,7 @@ class SortableArray {
         this.arrayAccesses = 0;
         this.values = [...values];
         this.details = details;
+        this.details.assignArray(this);
     }
 
     public async incComp(i: number, j: number): Promise<void> {
