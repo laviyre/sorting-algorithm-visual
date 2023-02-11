@@ -3,9 +3,9 @@ const SoundManager = (() => {
     let minVal: number = 1, maxVal: number = 1;
     let minFreq: number = 150, maxFreq: number = 1500;
     let vals: Array<number> = [];
-    let currVolume: GainNode | null;
     
-    const expDecayTime: number = 0.01;
+    let currVolume: GainNode | null;
+    let currSound: OscillatorNode | null;
 
     const start = (minimum: number, maximum: number) => {
         context = new AudioContext();
@@ -19,14 +19,9 @@ const SoundManager = (() => {
         vals.push(freq);
     }
 
-    // This removes artifacts from the sound
-    const freqTime = (ms: number, freq: number) => {
-        return Math.ceil(ms/1000 * freq + expDecayTime) / freq * 1000;
-    }
-
     const makeSound = (ms: number) => {
         let geo = geoMean();
-        createSound(geo, freqTime(ms,geo));
+        createSound(geo, ms);
         vals = [];
     }
 
@@ -41,26 +36,31 @@ const SoundManager = (() => {
     }
 
     const createSound = (frequency: number, ms: number) => {
-        if (currVolume != null)
-        {
-            currVolume.gain.exponentialRampToValueAtTime(0.001, context.currentTime + expDecayTime);
-            console.log("cool");
-        }
+        if (currSound == null) {
 
-        let sound = new OscillatorNode(context, {
-            frequency: frequency,
-            type: "triangle",
-        })
-        
-        currVolume = context.createGain();
-        currVolume.gain.value = 0.1;
-        sound.connect(currVolume);
-        currVolume.connect(context.destination);
-        sound.start(context.currentTime);
-        sound.stop(context.currentTime + ms/1000);
+            currSound = new OscillatorNode(context, {
+                frequency: frequency,
+                type: "triangle",
+            })
+            
+            currVolume = context.createGain();
+            currVolume.gain.value = 0.1;
+            currSound.connect(currVolume);
+            currVolume.connect(context.destination);
+            currSound.start(context.currentTime);
+        } else {
+            currSound.frequency.setValueAtTime(frequency, context.currentTime);
+        }
     }
 
-    return {start, makeSound, addValue};
+    const endSound = () => {
+        if (currVolume != null) currVolume.gain.value = 0;
+        currVolume = null;
+        if (currSound != null) currSound.stop(context.currentTime);
+        currSound = null;
+    }
+
+    return {start, makeSound, addValue, endSound};
 })();
 
 export default SoundManager;

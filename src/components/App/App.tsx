@@ -53,6 +53,7 @@ function App() {
         sortArr.setIncrementMode(false);
         await sortArr.checkSorted();
         setArr(sortArr.getResetDisplayableArray());
+        SoundManager.endSound();
         setSorting(false);
     }
 
